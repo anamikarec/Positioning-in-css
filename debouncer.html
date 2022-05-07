@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debouncer</title>
+</head>
+<body>
+    <p id="count">0</p>
+    <button id="click">Click me</button>
+</body>
+    <script>
+        let count = 0;
+        function debouncer(fn,delay){
+            let id;
+            return ()=>{
+                id&&clearTimeout(id);
+                id = setTimeout(()=>fn(),delay);
+            }
+        }
+        window.addEventListener("load",()=>{
+            const btn = document.getElementById("click");
+            function incCount(){
+                count++;
+                document.getElementById("count").textContent = count;
+            }
+            btn.addEventListener("click",()=>{
+                debouncer(incCount,1000);
+            })
+        })
+    </script>
+</html>
