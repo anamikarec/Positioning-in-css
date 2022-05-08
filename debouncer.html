@@ -5,29 +5,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Debouncer</title>
+    <style>
+        .cont{
+            display: grid;
+            place-items: center;
+        }
+    </style>
 </head>
 <body>
-    <p id="count">0</p>
-    <button id="click">Click me</button>
+    <div class="cont">
+        <div id="count">0</div>
+        <button id="btn">Click Me</button>
+    </div>
 </body>
     <script>
-        let count = 0;
-        function debouncer(fn,delay){
-            let id;
-            return ()=>{
-                id&&clearTimeout(id);
-                id = setTimeout(()=>fn(),delay);
-            }
+       window.addEventListener("load", ()=>{
+           const btn = document.getElementById("btn");
+           let c = 0;
+           const increment = () => {
+            c++;
+            document.getElementById("count").textContent = c;
+           }
+           btn.addEventListener("click", debounce(increment,1000));
+       })
+       function debounce(fn,delay) {
+        let id;
+        return ()=>{
+            id&&clearTimeout(id);
+            id =  setTimeout(()=>fn(),delay);
         }
-        window.addEventListener("load",()=>{
-            const btn = document.getElementById("click");
-            function incCount(){
-                count++;
-                document.getElementById("count").textContent = count;
-            }
-            btn.addEventListener("click",()=>{
-                debouncer(incCount,1000);
-            })
-        })
+       }
     </script>
 </html>
